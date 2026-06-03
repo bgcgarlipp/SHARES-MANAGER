@@ -1,0 +1,10 @@
+<table>
+  <thead><tr><th>Shareholder</th><th>Class</th><th>Shares</th></tr></thead>
+  <tbody>
+  {% for h in holdings %}
+    <tr><td>{{ h.shareholder_name }}</td><td>{{ h.share_type_name }}</td><td>{{ h.quantity }}</td></tr>
+  {% else %}
+    <tr><td colspan="3" class="muted">No shares issued yet.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

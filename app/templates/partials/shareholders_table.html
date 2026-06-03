@@ -1,0 +1,26 @@
+<table id="shareholders-table">
+  <thead><tr>
+    <th>Name</th><th>Type</th><th>Identifier</th><th>Email</th>
+    {% if user and user.role.value == "admin" %}<th></th>{% endif %}
+  </tr></thead>
+  <tbody>
+  {% for s in shareholders %}
+    <tr>
+      <td>{{ s.name }}</td>
+      <td><span class="pill">{{ s.type.value }}</span></td>
+      <td>{{ s.identifier or "—" }}</td>
+      <td>{{ s.email or "—" }}</td>
+      {% if user and user.role.value == "admin" %}
+      <td>
+        <button class="btn small" style="background:#b00"
+                hx-delete="/ui/shareholders/{{ s.id }}"
+                hx-target="#shareholders-body" hx-swap="outerHTML"
+                hx-confirm="Delete {{ s.name }}?">Delete</button>
+      </td>
+      {% endif %}
+    </tr>
+  {% else %}
+    <tr><td colspan="5" class="muted">No shareholders found.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

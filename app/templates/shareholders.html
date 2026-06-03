@@ -3,20 +3,6 @@
 {% block content %}
 <div class="card">
   <h1>Shareholders</h1>
-  <table>
-    <thead><tr><th>Name</th><th>Type</th><th>Identifier</th><th>Email</th></tr></thead>
-    <tbody>
-    {% for s in shareholders %}
-      <tr>
-        <td>{{ s.name }}</td>
-        <td><span class="pill">{{ s.type.value }}</span></td>
-        <td>{{ s.identifier or "—" }}</td>
-        <td>{{ s.email or "—" }}</td>
-      </tr>
-    {% else %}
-      <tr><td colspan="4" class="muted">No shareholders yet.</td></tr>
-    {% endfor %}
-    </tbody>
-  </table>
+  {% include "partials/shareholders_body.html" %}
 </div>
 {% endblock %}

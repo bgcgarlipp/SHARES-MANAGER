@@ -19,6 +19,7 @@ from app.routers import (
     share_types,
     shareholders,
     shares,
+    ui,
 )
 
 settings = get_settings()
@@ -43,8 +44,9 @@ app.include_router(certificates.router)
 app.include_router(ledger.router)
 app.include_router(reports.router)
 
-# UI pages
+# UI pages and HTMX handlers
 app.include_router(pages.router)
+app.include_router(ui.router)
 
 
 @app.get("/health", tags=["meta"])

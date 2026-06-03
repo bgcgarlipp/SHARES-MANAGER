@@ -1,0 +1,93 @@
+<div id="company-body">
+  {% set is_admin = user and user.role.value == "admin" %}
+
+  {% if is_admin %}
+  <div class="card">
+    <h2>Add share class</h2>
+    <form hx-post="/ui/companies/{{ company.id }}/share-types"
+          hx-target="#company-body" hx-swap="outerHTML">
+      <div class="grid">
+        <input name="name" placeholder="Name (e.g. Ordinary)" required>
+        <input name="code" placeholder="Code (e.g. ORD)" required>
+        <input name="nominal_value" type="number" step="0.0001" value="1" placeholder="Nominal">
+        <input name="authorized_shares" type="number" placeholder="Authorized (blank = uncapped)">
+      </div>
+      <p>
+        <label><input type="checkbox" name="voting_rights" checked> Voting rights</label>
+        <input name="dividend_rights" placeholder="Dividend rights (optional)">
+        <button class="btn" type="submit">Add class</button>
+      </p>
+    </form>
+  </div>
+  {% endif %}
+
+  <div class="card">
+    <h2>Share classes &amp; capital</h2>
+    {% include "partials/share_types_table.html" %}
+  </div>
+
+  {% if is_admin %}
+  <div class="card">
+    <h2>Issue shares</h2>
+    <form hx-post="/ui/companies/{{ company.id }}/issue"
+          hx-target="#company-body" hx-swap="outerHTML">
+      <div class="grid">
+        <select name="share_type_id" required>
+          <option value="">Share class…</option>
+          {% for st in share_types %}<option value="{{ st.id }}">{{ st.name }} ({{ st.code }})</option>{% endfor %}
+        </select>
+        <select name="shareholder_id" required>
+          <option value="">Shareholder…</option>
+          {% for s in shareholders %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+        </select>
+        <input name="quantity" type="number" min="1" placeholder="Quantity" required>
+        <input name="reference" placeholder="Reference (optional)">
+      </div>
+      <p><button class="btn" type="submit">Issue &amp; create certificate</button></p>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Transfer shares</h2>
+    <form hx-post="/ui/companies/{{ company.id }}/transfer"
+          hx-target="#company-body" hx-swap="outerHTML">
+      <div class="grid">
+        <select name="share_type_id" required>
+          <option value="">Share class…</option>
+          {% for st in share_types %}<option value="{{ st.id }}">{{ st.name }} ({{ st.code }})</option>{% endfor %}
+        </select>
+        <input name="quantity" type="number" min="1" placeholder="Quantity" required>
+        <select name="from_shareholder_id" required>
+          <option value="">From…</option>
+          {% for s in shareholders %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+        </select>
+        <select name="to_shareholder_id" required>
+          <option value="">To…</option>
+          {% for s in shareholders %}<option value="{{ s.id }}">{{ s.name }}</option>{% endfor %}
+        </select>
+      </div>
+      <p>
+        <input name="reference" placeholder="Reference (optional)">
+        <button class="btn" type="submit">Transfer</button>
+      </p>
+    </form>
+  </div>
+  {% endif %}
+
+  {% if error %}<div class="card"><p class="error">{{ error }}</p></div>{% endif %}
+
+  <div class="card">
+    <h2>Holdings (cap table)</h2>
+    {% include "partials/holdings_table.html" %}
+  </div>
+
+  <div class="card">
+    <h2>Certificates</h2>
+    {% include "partials/certificates_table.html" %}
+  </div>
+
+  <div class="card">
+    <h2>Share ledger</h2>
+    {% include "partials/ledger_table.html" %}
+  </div>
+</div>

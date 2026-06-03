@@ -9,41 +9,8 @@
   </p>
   <a class="btn small" href="/api/companies/{{ company.id }}/cap-table" target="_blank">Cap table (JSON)</a>
   <a class="btn small" href="/api/companies/{{ company.id }}/register/export">Export register (CSV)</a>
-  <a class="btn small" href="/api/companies/{{ company.id }}/ledger" target="_blank">Ledger (JSON)</a>
+  <a class="btn small" href="/">&larr; All companies</a>
 </div>
 
-<div class="card">
-  <h2>Share classes &amp; capital</h2>
-  <table>
-    <thead><tr><th>Class</th><th>Code</th><th>Nominal</th><th>Authorized</th><th>Issued</th><th>Available</th></tr></thead>
-    <tbody>
-    {% for row in capital %}
-      <tr>
-        <td>{{ row.st.name }}</td>
-        <td><span class="pill">{{ row.st.code }}</span></td>
-        <td>{{ row.st.currency }} {{ row.st.nominal_value }}</td>
-        <td>{{ row.st.authorized_shares if row.st.authorized_shares is not none else "uncapped" }}</td>
-        <td>{{ row.issued }}</td>
-        <td>{{ row.available if row.available is not none else "—" }}</td>
-      </tr>
-    {% else %}
-      <tr><td colspan="6" class="muted">No share classes defined.</td></tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
-
-<div class="card">
-  <h2>Holdings (cap table)</h2>
-  <table>
-    <thead><tr><th>Shareholder</th><th>Class</th><th>Shares</th></tr></thead>
-    <tbody>
-    {% for h in holdings %}
-      <tr><td>{{ h.shareholder_name }}</td><td>{{ h.share_type_name }}</td><td>{{ h.quantity }}</td></tr>
-    {% else %}
-      <tr><td colspan="3" class="muted">No shares issued yet.</td></tr>
-    {% endfor %}
-    </tbody>
-  </table>
-</div>
+{% include "partials/company_body.html" %}
 {% endblock %}

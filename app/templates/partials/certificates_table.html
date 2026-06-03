@@ -1,0 +1,29 @@
+<table>
+  <thead><tr>
+    <th>Number</th><th>Holder</th><th>Class</th><th>Qty</th>
+    <th>Issued</th><th>Status</th><th></th>
+  </tr></thead>
+  <tbody>
+  {% for c in certificates %}
+    <tr>
+      <td>{{ c.certificate_number }}</td>
+      <td>{{ c.shareholder.name }}</td>
+      <td>{{ c.share_type.code }}</td>
+      <td>{{ c.quantity }}</td>
+      <td>{{ c.issue_date.isoformat() }}</td>
+      <td><span class="pill">{{ c.status.value }}</span></td>
+      <td>
+        <a class="btn small" href="/api/certificates/{{ c.id }}/pdf" target="_blank">PDF</a>
+        {% if user and user.role.value == "admin" and c.status.value != "cancelled" %}
+        <button class="btn small" style="background:#b00"
+                hx-post="/ui/certificates/{{ c.id }}/cancel"
+                hx-target="#company-body" hx-swap="outerHTML"
+                hx-confirm="Cancel certificate {{ c.certificate_number }}?">Cancel</button>
+        {% endif %}
+      </td>
+    </tr>
+  {% else %}
+    <tr><td colspan="7" class="muted">No certificates issued.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

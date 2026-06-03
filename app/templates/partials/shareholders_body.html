@@ -1,0 +1,28 @@
+<div id="shareholders-body">
+  {% set is_admin = user and user.role.value == "admin" %}
+
+  {% if is_admin %}
+  <form hx-post="/ui/shareholders" hx-target="#shareholders-body" hx-swap="outerHTML"
+        hx-on::after-request="if(event.detail.successful) this.reset()">
+    <div class="grid">
+      <input name="name" placeholder="Name" required>
+      <select name="type">
+        <option value="individual">Individual</option>
+        <option value="entity">Entity</option>
+      </select>
+      <input name="identifier" placeholder="Identifier (optional)">
+      <input name="email" type="email" placeholder="Email (optional)">
+    </div>
+    <p><button class="btn" type="submit">Add shareholder</button></p>
+  </form>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  {% endif %}
+
+  <p>
+    <input name="q" placeholder="Search name or identifier…" value="{{ q }}"
+           hx-get="/ui/shareholders/search" hx-target="#shareholders-table"
+           hx-trigger="keyup changed delay:300ms, search" hx-swap="outerHTML" style="width:60%">
+  </p>
+
+  {% include "partials/shareholders_table.html" %}
+</div>

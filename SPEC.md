@@ -141,14 +141,14 @@ Provide a web-based system where an administrator can:
 ### Phase 4 — Share Types
 - [x] **T4.1** CRUD endpoints for share types scoped to a company.
 - [x] **T4.2** Enforce authorized-shares ceiling and unique code per company.
-- [~] **T4.3** UI for managing share classes within a company. *(read-only display
-  in the company view; create/edit via API — interactive HTMX forms are a follow-up.)*
+- [x] **T4.3** UI for managing share classes within a company. *(HTMX add/delete
+  forms on the company page, swapping in updated capital tables.)*
 
 ### Phase 5 — Shareholders
 - [x] **T5.1** CRUD endpoints for shareholders.
 - [x] **T5.2** Search/filter shareholders; link to holdings.
-- [~] **T5.3** UI for shareholder management. *(read-only list view; create/edit via
-  API — interactive HTMX forms are a follow-up.)*
+- [x] **T5.3** UI for shareholder management. *(HTMX add/delete forms plus live
+  search on the shareholders page.)*
 
 ### Phase 6 — Share Issuance & Ledger
 - [x] **T6.1** Issue-shares service: validate capacity, write ledger ISSUE entry, create certificate.
