@@ -29,19 +29,21 @@ Provide a web-based system where an administrator can:
 | Concern            | Choice                                            |
 |--------------------|---------------------------------------------------|
 | Language           | Python 3.11+                                       |
-| Web framework      | FastAPI (REST API) + Jinja2/HTMX for server views, or Flask as alternative |
+| Web framework      | FastAPI (REST API + server-rendered pages)         |
+| UI                 | Jinja2 templates + HTMX (no separate SPA)          |
 | ORM                | SQLAlchemy 2.x                                      |
 | Migrations         | Alembic                                            |
 | Database           | SQLite (dev) / PostgreSQL (prod)                   |
 | Validation         | Pydantic v2                                         |
-| Auth               | Session-based or JWT; password hashing via passlib |
-| PDF certificates   | WeasyPrint or ReportLab                             |
+| Auth               | Session-based (secure cookies); passwords hashed via passlib (bcrypt) |
+| PDF certificates   | WeasyPrint (HTML/CSS → PDF)                         |
 | Testing            | pytest, pytest-cov, httpx test client              |
-| Packaging / deps   | Poetry or uv + pyproject.toml                       |
-| Lint / format      | ruff + black + mypy                                 |
+| Packaging / deps   | uv + pyproject.toml                                 |
+| Lint / format      | ruff (lint + format) + mypy                         |
 | Containerization   | Docker + docker-compose                            |
 
-> Decisions marked "or" are open; pick one during Task 1 and record in `DECISIONS.md`.
+> All stack choices are locked. Rationale and alternatives are recorded in
+> [`DECISIONS.md`](./DECISIONS.md).
 
 ---
 
@@ -216,9 +218,24 @@ GET    /companies/{id}/register/export
 
 ---
 
-## 7. Open Questions / Decisions to Record
-- Final framework choice (FastAPI vs Flask) and templating (HTMX vs SPA).
-- PDF library (WeasyPrint vs ReportLab).
-- Single-tenant (one admin org) vs multi-tenant access model.
-- Fractional shares allowed? (default: integer shares only.)
-- Audit logging scope beyond the ledger.
+## 7. Resolved Decisions
+
+All initial open questions have been settled — see [`DECISIONS.md`](./DECISIONS.md)
+for full rationale.
+
+| # | Question | Decision |
+|---|----------|----------|
+| D1 | Web framework | **FastAPI** |
+| D2 | UI approach | **Jinja2 + HTMX** (server-rendered, no SPA) |
+| D3 | PDF library | **WeasyPrint** (HTML/CSS → PDF) |
+| D4 | Tenancy / access | **Single-tenant**, role-based (`admin`, `viewer`) |
+| D5 | Share granularity | **Integer shares only** (no fractional) |
+| D6 | Audit logging | **Ledger** (authoritative) **+ lightweight `AuditLog`** |
+| D7 | Deps & tooling | **uv** + ruff + mypy + pytest + pre-commit |
+| D8 | Database | **SQLite (dev) / PostgreSQL (prod)** via SQLAlchemy + Alembic |
+| D9 | Authentication | **Session-based** secure cookies, bcrypt via passlib |
+
+### Schema impact of D6
+Add an **AuditLog** entity for non-ledger mutations:
+- `id` (PK), `actor_user_id` (FK → User), `action`, `entity_type`, `entity_id`
+- `summary` (text), `created_at`
