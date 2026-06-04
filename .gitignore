@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+
+# Env / secrets
+.env
+
+# Database
+*.db
+*.sqlite3
+
+# Generated artifacts
+artifacts/
+certificates_out/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# uv
+uv.lock

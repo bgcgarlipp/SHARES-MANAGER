@@ -1,0 +1,32 @@
+<table>
+  <thead><tr>
+    <th>Class</th><th>Code</th><th>Nominal</th><th>Voting</th>
+    <th>Authorized</th><th>Issued</th><th>Available</th>
+    {% if user and user.role.value == "admin" %}<th></th>{% endif %}
+  </tr></thead>
+  <tbody>
+  {% for row in capital %}
+    <tr>
+      <td>{{ row.st.name }}</td>
+      <td><span class="pill">{{ row.st.code }}</span></td>
+      <td>{{ row.st.currency }} {{ row.st.nominal_value }}</td>
+      <td>{{ "yes" if row.st.voting_rights else "no" }}</td>
+      <td>{{ row.st.authorized_shares if row.st.authorized_shares is not none else "uncapped" }}</td>
+      <td>{{ row.issued }}</td>
+      <td>{{ row.available if row.available is not none else "—" }}</td>
+      {% if user and user.role.value == "admin" %}
+      <td>
+        {% if row.issued == 0 %}
+        <button class="btn small" style="background:#b00"
+                hx-delete="/ui/share-types/{{ row.st.id }}"
+                hx-target="#company-body" hx-swap="outerHTML"
+                hx-confirm="Delete share class {{ row.st.code }}?">Delete</button>
+        {% else %}<span class="muted">in use</span>{% endif %}
+      </td>
+      {% endif %}
+    </tr>
+  {% else %}
+    <tr><td colspan="8" class="muted">No share classes defined.</td></tr>
+  {% endfor %}
+  </tbody>
+</table>

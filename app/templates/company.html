@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ company.name }} &middot; Shares Manager{% endblock %}
+{% block content %}
+<div class="card">
+  <h1>{{ company.name }}</h1>
+  <p class="muted">
+    Reg. {{ company.registration_number }} &middot;
+    {{ company.jurisdiction or "—" }} &middot; {{ company.currency }}
+  </p>
+  <a class="btn small" href="/api/companies/{{ company.id }}/cap-table" target="_blank">Cap table (JSON)</a>
+  <a class="btn small" href="/api/companies/{{ company.id }}/register/export">Export register (CSV)</a>
+  <a class="btn small" href="/">&larr; All companies</a>
+</div>
+
+{% include "partials/company_body.html" %}
+{% endblock %}

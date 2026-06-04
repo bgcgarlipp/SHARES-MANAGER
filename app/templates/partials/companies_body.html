@@ -1,0 +1,35 @@
+<div id="companies-body">
+  {% set is_admin = user and user.role.value == "admin" %}
+  <p class="muted">{{ companies|length }} companies &middot; {{ shareholder_count }} shareholders</p>
+
+  {% if is_admin %}
+  <form hx-post="/ui/companies" hx-target="#companies-body" hx-swap="outerHTML"
+        hx-on::after-request="if(event.detail.successful) this.reset()">
+    <div class="grid">
+      <input name="name" placeholder="Company name" required>
+      <input name="registration_number" placeholder="Registration number" required>
+      <input name="jurisdiction" placeholder="Jurisdiction (optional)">
+      <input name="currency" placeholder="Currency" value="USD" maxlength="3">
+    </div>
+    <p><button class="btn" type="submit">Add company</button></p>
+  </form>
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+  {% endif %}
+
+  <table>
+    <thead><tr><th>Name</th><th>Reg. number</th><th>Jurisdiction</th><th>Currency</th><th></th></tr></thead>
+    <tbody>
+    {% for c in companies %}
+      <tr>
+        <td><a href="/companies/{{ c.id }}">{{ c.name }}</a></td>
+        <td>{{ c.registration_number }}</td>
+        <td>{{ c.jurisdiction or "—" }}</td>
+        <td>{{ c.currency }}</td>
+        <td><a class="btn small" href="/companies/{{ c.id }}">Open</a></td>
+      </tr>
+    {% else %}
+      <tr><td colspan="5" class="muted">No companies yet.</td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

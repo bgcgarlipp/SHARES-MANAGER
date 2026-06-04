@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Shares Manager{% endblock %}</title>
+  <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+  <style>
+    :root { --accent: #2c3e50; --muted: #777; --bg: #f5f6f8; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: var(--bg); color: #222; }
+    header { background: var(--accent); color: #fff; padding: 12px 24px;
+             display: flex; align-items: center; gap: 24px; }
+    header a { color: #fff; text-decoration: none; opacity: .9; }
+    header a:hover { opacity: 1; }
+    header .brand { font-weight: 700; font-size: 18px; }
+    header .spacer { flex: 1; }
+    main { max-width: 1000px; margin: 24px auto; padding: 0 24px; }
+    .card { background: #fff; border-radius: 8px; padding: 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,.08); margin-bottom: 20px; }
+    h1 { font-size: 22px; } h2 { font-size: 17px; color: var(--accent); }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid #eee; }
+    th { color: var(--muted); font-size: 12px; text-transform: uppercase; }
+    .btn { background: var(--accent); color: #fff; border: 0; padding: 8px 14px;
+           border-radius: 6px; cursor: pointer; text-decoration: none; font-size: 14px; }
+    .btn.small { padding: 4px 10px; font-size: 12px; }
+    .muted { color: var(--muted); }
+    .pill { background: #eef; border-radius: 10px; padding: 2px 8px; font-size: 12px; }
+    input, select { padding: 7px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; }
+    .grid { display: grid; gap: 10px; grid-template-columns: repeat(2, 1fr); }
+    .error { color: #b00; }
+  </style>
+</head>
+<body>
+  {% if user %}
+  <header>
+    <span class="brand">Shares Manager</span>
+    <a href="/">Dashboard</a>
+    <a href="/shareholders">Shareholders</a>
+    <a href="/docs">API</a>
+    <span class="spacer"></span>
+    <span class="muted" style="color:#cdd;">{{ user.email }} ({{ user.role.value }})</span>
+    <a href="/logout">Logout</a>
+  </header>
+  {% endif %}
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>
