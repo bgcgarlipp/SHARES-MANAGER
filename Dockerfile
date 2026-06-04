@@ -9,11 +9,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /app
 
 COPY pyproject.toml README.md ./
-RUN pip install --no-cache-dir ".[pdf]"
+RUN pip install --no-cache-dir ".[pdf,postgres]"
 
 COPY app ./app
 COPY migrations ./migrations
-COPY alembic.ini seed.py ./
+COPY alembic.ini seed.py docker-entrypoint.sh ./
+RUN chmod +x docker-entrypoint.sh
 
 EXPOSE 8000
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["./docker-entrypoint.sh"]

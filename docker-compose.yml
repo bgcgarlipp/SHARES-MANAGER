@@ -25,6 +25,8 @@ services:
       SECRET_KEY: change-me-in-production
       ADMIN_EMAIL: admin@example.com
       ADMIN_PASSWORD: admin12345
+      # Schema is managed by Alembic via the entrypoint; skip create_all.
+      AUTO_CREATE_TABLES: "false"
     ports:
       - "8000:8000"
 

@@ -4,9 +4,10 @@ A Python web application for managing share capital across multiple companies:
 capture companies, define share types, allocate shares to shareholders, issue
 share certificates, and maintain an auditable share ledger.
 
-> **Status:** Implemented. The application in `app/` covers Phases 0–9 and the
-> core of Phase 10 (Dockerfile, docker-compose, `/health`). Run `pytest`
-> (18 tests, ~82% coverage), `ruff check .`, and `mypy app` — all green.
+> **Status:** Implemented. The application in `app/` covers Phases 0–10:
+> full API, HTMX management UI, share ledger, PDF certificates, reporting,
+> Docker/compose with migrate-on-deploy, and CI. Run `pytest` (24 tests,
+> ~82% coverage), `ruff check .`, and `mypy app` — all green.
 > See [`README.md`](./README.md) for quick start.
 
 ---
@@ -181,8 +182,9 @@ Provide a web-based system where an administrator can:
 
 ### Phase 10 — Deployment (optional/stretch)
 - [x] **T10.1** Production config, env management, secrets (`.env`, `Settings`).
-- [~] **T10.2** Healthcheck endpoint (`/health`) done; wiring `alembic upgrade`
-  into the container start command is a follow-up (dev uses `create_all`).
+- [x] **T10.2** Healthcheck endpoint (`/health`) and migrations on deploy: the
+  Docker entrypoint runs `alembic upgrade head` before starting; production sets
+  `AUTO_CREATE_TABLES=false` so Alembic owns the schema.
 - [x] **T10.3** Deploy guide (Docker / docker-compose in `README.md`).
 
 ---

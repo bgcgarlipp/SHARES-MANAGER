@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     debug: bool = True
 
     database_url: str = "sqlite:///./shares.db"
+    # Auto-create tables on startup (handy for dev/SQLite). In production set
+    # this False and manage schema with Alembic migrations.
+    auto_create_tables: bool = True
 
     admin_email: str = "admin@example.com"
     admin_password: str = "admin12345"

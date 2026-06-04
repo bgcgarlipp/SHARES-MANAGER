@@ -40,5 +40,6 @@ def ensure_admin(db: Session | None = None) -> None:
 
 
 def init_db() -> None:
-    create_tables()
+    if get_settings().auto_create_tables:
+        create_tables()
     ensure_admin()

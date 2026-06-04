@@ -77,3 +77,7 @@ ruff check . && mypy app     # lint + type-check
 ```bash
 docker compose up --build    # app + PostgreSQL
 ```
+
+The container entrypoint runs `alembic upgrade head` before starting, so the
+schema is migrated on deploy. In that setup `AUTO_CREATE_TABLES=false` lets
+Alembic own the schema (dev defaults to `true` for zero-setup SQLite).
