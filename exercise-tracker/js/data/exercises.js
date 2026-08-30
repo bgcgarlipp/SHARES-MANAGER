@@ -1,0 +1,67 @@
+// Seed exercise library: [name, muscleGroup, equipment, isBodyweight, isCompound]
+export const MUSCLE_GROUPS = [
+  "chest", "back", "shoulders", "biceps", "triceps", "quads", "hamstrings",
+  "glutes", "calves", "core", "full_body", "cardio",
+];
+
+export const EQUIPMENT_TYPES = ["barbell", "dumbbell", "machine", "cable", "bodyweight", "band"];
+
+export const EXERCISES = [
+  // --- Gym: barbell compounds ---
+  ["Barbell Back Squat", "quads", "barbell", false, true],
+  ["Barbell Front Squat", "quads", "barbell", false, true],
+  ["Barbell Bench Press", "chest", "barbell", false, true],
+  ["Barbell Incline Bench Press", "chest", "barbell", false, true],
+  ["Barbell Deadlift", "back", "barbell", false, true],
+  ["Barbell Romanian Deadlift", "hamstrings", "barbell", false, true],
+  ["Barbell Overhead Press", "shoulders", "barbell", false, true],
+  ["Barbell Bent-Over Row", "back", "barbell", false, true],
+  ["Barbell Hip Thrust", "glutes", "barbell", false, true],
+  ["Barbell Bicep Curl", "biceps", "barbell", false, false],
+  // --- Gym: dumbbell ---
+  ["Dumbbell Bench Press", "chest", "dumbbell", false, true],
+  ["Dumbbell Incline Press", "chest", "dumbbell", false, true],
+  ["Dumbbell Shoulder Press", "shoulders", "dumbbell", false, true],
+  ["Dumbbell Row", "back", "dumbbell", false, true],
+  ["Dumbbell Romanian Deadlift", "hamstrings", "dumbbell", false, true],
+  ["Dumbbell Lunge", "quads", "dumbbell", false, true],
+  ["Dumbbell Goblet Squat", "quads", "dumbbell", false, true],
+  ["Dumbbell Lateral Raise", "shoulders", "dumbbell", false, false],
+  ["Dumbbell Bicep Curl", "biceps", "dumbbell", false, false],
+  ["Dumbbell Tricep Extension", "triceps", "dumbbell", false, false],
+  ["Dumbbell Bulgarian Split Squat", "quads", "dumbbell", false, true],
+  // --- Gym: machine / cable ---
+  ["Leg Press", "quads", "machine", false, true],
+  ["Leg Curl Machine", "hamstrings", "machine", false, false],
+  ["Leg Extension Machine", "quads", "machine", false, false],
+  ["Seated Calf Raise Machine", "calves", "machine", false, false],
+  ["Chest Fly Machine", "chest", "machine", false, false],
+  ["Lat Pulldown", "back", "cable", false, true],
+  ["Seated Cable Row", "back", "cable", false, true],
+  ["Cable Tricep Pushdown", "triceps", "cable", false, false],
+  ["Cable Face Pull", "shoulders", "cable", false, false],
+  ["Assisted Pull-Up Machine", "back", "machine", false, true],
+  // --- Bodyweight / home ---
+  ["Push-Up", "chest", "bodyweight", true, true],
+  ["Diamond Push-Up", "triceps", "bodyweight", true, true],
+  ["Pike Push-Up", "shoulders", "bodyweight", true, true],
+  ["Pull-Up", "back", "bodyweight", true, true],
+  ["Chin-Up", "back", "bodyweight", true, true],
+  ["Inverted Row", "back", "bodyweight", true, true],
+  ["Bodyweight Squat", "quads", "bodyweight", true, true],
+  ["Jump Squat", "quads", "bodyweight", true, true],
+  ["Walking Lunge", "quads", "bodyweight", true, true],
+  ["Step-Up", "quads", "bodyweight", true, true],
+  ["Glute Bridge", "glutes", "bodyweight", true, true],
+  ["Single-Leg Glute Bridge", "glutes", "bodyweight", true, true],
+  ["Wall Sit", "quads", "bodyweight", true, false],
+  ["Chair Dip", "triceps", "bodyweight", true, true],
+  ["Plank", "core", "bodyweight", true, false],
+  ["Side Plank", "core", "bodyweight", true, false],
+  ["Bicycle Crunch", "core", "bodyweight", true, false],
+  ["Superman", "back", "bodyweight", true, false],
+  ["Mountain Climbers", "cardio", "bodyweight", true, false],
+  ["Burpees", "full_body", "bodyweight", true, true],
+  ["Jumping Jacks", "cardio", "bodyweight", true, false],
+  ["High Knees", "cardio", "bodyweight", true, false],
+];

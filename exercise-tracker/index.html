@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+<title>Exercise Tracker</title>
+<meta name="description" content="Goal-based gym & home workout tracker with progress graphs and automatic weight suggestions.">
+<meta name="theme-color" content="#2f6fed">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Exercises">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <h1 id="page-title">Exercise Tracker</h1>
+</header>
+
+<main id="app-content">
+  <div class="empty-state">Loading…</div>
+</main>
+
+<nav class="bottom-nav" id="bottom-nav">
+  <a href="#/" data-route="dashboard"><span class="icon">🏠</span>Home</a>
+  <a href="#/programs" data-route="programs"><span class="icon">📋</span>Programs</a>
+  <a href="#/history" data-route="history"><span class="icon">📈</span>History</a>
+  <a href="#/exercises" data-route="exercises"><span class="icon">💪</span>Exercises</a>
+</nav>
+
+<script src="js/vendor/chart.umd.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
